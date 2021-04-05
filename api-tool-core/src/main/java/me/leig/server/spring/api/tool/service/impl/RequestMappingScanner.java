@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.FutureTask;
 
 /**
@@ -30,6 +31,9 @@ public class RequestMappingScanner implements ApplicationContextAware {
 
     @Autowired
     private RequestMappingHandler requestMappingHandler;
+
+    @Autowired
+    private ExecutorService executorService;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -67,7 +71,7 @@ public class RequestMappingScanner implements ApplicationContextAware {
             }
         }
         requestMappingHandler.handler(apiServiceBean);
-        new FutureTask<>(requestMappingHandler).run();
+        executorService.submit(requestMappingHandler);
     }
 
 }

@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-me.leig.server.spring.api.tool.config.ApiToolAutoConfiguration
+me.leig.server.spring.api.tool.auto.config.ApiToolAutoConfiguration

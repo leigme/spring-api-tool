@@ -3,12 +3,14 @@ package me.leig.server.spring.api.tool.config;
 import me.leig.server.spring.api.tool.service.RequestMappingHandler;
 import me.leig.server.spring.api.tool.service.impl.LocalRequestMappingHandler;
 import me.leig.server.spring.api.tool.service.impl.RequestMappingScanner;
+import me.leig.server.spring.api.tool.service.impl.ThreadPoolFactoryImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+
+import java.util.concurrent.ExecutorService;
 
 /**
  * TODO
@@ -17,7 +19,7 @@ import org.springframework.core.io.Resource;
  * @Date 2021/4/2
  **/
 @Configuration
-public class ApiToolAutoConfiguration {
+public class ApiToolConfiguration {
 
     @Bean
     public ApiToolConfig apiToolConfig() {
@@ -40,4 +42,8 @@ public class ApiToolAutoConfiguration {
         return new RequestMappingScanner();
     }
 
+    @Bean
+    public ExecutorService executorService() {
+        return ThreadPoolFactoryImpl.INSTANCE.newSingleThreadExecutor();
+    }
 }
